@@ -7,7 +7,7 @@ class QBarGraph : public QProgressBar {
     Q_OBJECT
 
 public:
-    QBarGraph(QColor *backgroundColor = nullptr,
+   explicit QBarGraph(QColor *backgroundColor = nullptr,
               QColor *cursorColor = nullptr,
               QColor *textColor = nullptr,
               QColor *progressColor = nullptr,

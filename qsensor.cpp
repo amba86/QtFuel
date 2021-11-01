@@ -4,7 +4,7 @@
 #include <QDateTime>
 #include <QtMath>
 
-QSensor::QSensor(QObject *parent = nullptr) : QThread(parent) {
+QSensor::QSensor(QObject *parent) : QThread(parent) {
     value = -256;
     ascending = true;
 }
