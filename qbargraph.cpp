@@ -27,7 +27,6 @@ QBarGraph::~QBarGraph() {
 void QBarGraph::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
 
-    // TODO: make member
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing |
                            QPainter::TextAntialiasing);
