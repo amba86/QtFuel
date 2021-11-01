@@ -46,7 +46,7 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
     void paintBackground(QPainter *painter);
-    void paintCursor(QPainter *painter);
+    void paintTextbox(QPainter *painter);
     void paintProgress(QPainter *painter);
 
 private:
@@ -60,6 +60,10 @@ private:
     int cornerRadius;
     int cursorOffset;
     int padding;
+
+    int progress();
+    void paintCursor(QPainter *painter, QRect rect);
+    void paintText(QPainter *painter, QRect rect);
 };
 
 #endif // QBARGRAPH_H

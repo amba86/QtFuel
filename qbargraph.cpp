@@ -35,7 +35,7 @@ void QBarGraph::paintEvent(QPaintEvent *event) {
 
     paintBackground(&painter);
     paintProgress(&painter);
-    paintCursor(&painter);
+    paintTextbox(&painter);
 }
 
 void QBarGraph::paintBackground(QPainter *painter) {
@@ -54,27 +54,34 @@ void QBarGraph::paintProgress(QPainter *painter) {
     painter->setPen(Qt::NoPen);
     painter->setBrush(progressBrush == Qt::NoBrush ? progressColor : progressBrush);
 
-    double step = value() / (double)(maximum() - minimum());
-    int progress = (width() - padding * 2) * step;
-
-    QRect rect(padding, 0, progress, height() / 3);
+    QRect rect(padding, 0, progress(), height() / 3);
     painter->drawRoundedRect(rect, cornerRadius, cornerRadius);
 
     painter->restore();
 }
 
-void QBarGraph::paintCursor(QPainter *painter) {
+int QBarGraph::progress() {
+    double step = value() / (double)(maximum() - minimum());
+    int progress = (width() - padding * 2) * step;
+
+    return progress;
+}
+
+void QBarGraph::paintTextbox(QPainter *painter) {
     painter->save();
     painter->setPen(Qt::NoPen);
     painter->setBrush(progressBrush == Qt::NoBrush ? cursorColor : progressBrush);
 
-    double step = value() / (double)(maximum() - minimum());
-    int progress = (width() - padding * 2) * step;
-
-    QRect rect(progress, height() / 3 + cursorOffset, padding * 2, height() / 3);
+    QRect rect(progress(), height() / 3 + cursorOffset, padding * 2, height() / 3);
     painter->drawRoundedRect(rect, 4, 4);
 
-    // Paint cursor
+    paintCursor(painter, rect);
+    paintText(painter, rect);
+
+    painter->restore();
+}
+
+void QBarGraph::paintCursor(QPainter *painter, QRect rect) {
     int centerX = rect.center().x();
     int y = height() / 3;
     QPolygon polygon;
@@ -82,16 +89,15 @@ void QBarGraph::paintCursor(QPainter *painter) {
     polygon.append(QPoint(centerX + cursorOffset, y + cursorOffset));
     polygon.append(QPoint(centerX - cursorOffset, y + cursorOffset));
     painter->drawPolygon(polygon);
+}
 
-    // Paint text
+void QBarGraph::paintText(QPainter *painter, QRect rect) {
     double percent = value() / (double)(maximum() - minimum()) * 100;
     QString text = QString("%1%").arg(percent, 0, 'f', 0);
     painter->setPen(textColor);
     // TODO: set font
     //    painter->setFont();
     painter->drawText(rect, Qt::AlignCenter, text);
-
-    painter->restore();
 }
 
 QColor QBarGraph::getBackgroundColor() const {
