@@ -7,7 +7,7 @@ class QSensor : public QThread {
     Q_OBJECT
 
 public:
-    QSensor();
+    QSensor(QObject *parent);
     ~QSensor();
 
 protected:

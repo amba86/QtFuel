@@ -1,3 +1,4 @@
+#include "qsensor.h"
 #include "qbargraph.h"
 #include "qfuelpicture.h"
 
@@ -9,10 +10,7 @@
 #include <QSize>
 
 // TODO: remove
-#include <QSlider>
 #include <QDebug>
-#include <QPainter>
-#include <QImage>
 
 int main(int argc, char *argv[])
 {
@@ -21,32 +19,29 @@ int main(int argc, char *argv[])
     QPalette palette;
     palette.setColor(QPalette::Background, Qt::blue);
 
-    QSlider *slider = new QSlider(Qt::Vertical, &widget);
-    slider->setMinimum(0);
-    slider->setMaximum(255);
+    QFuelPicture picture(":/assets/fuel.png", QSize(160, 160), &widget);
 
-    QFuelPicture *picture = new QFuelPicture(":/assets/fuel.png",
-                                             QSize(160, 160),
-                                             &widget);
+    QBarGraph bar(&widget);
+    bar.setPadding(20);
+    bar.setMinimum(0);
+    bar.setMaximum(255);
+    bar.setFixedHeight(100);
+    bar.setCornerRadius(20);
 
-    QBarGraph *bar = new QBarGraph(&widget);
-    bar->setPadding(20);
-    bar->setMinimum(0);
-    bar->setMaximum(255);
-    bar->setFixedHeight(100);
-    bar->setCornerRadius(20);
-
-    QHBoxLayout *layout = new QHBoxLayout(&widget);
-    layout->addWidget(slider);
-    layout->addWidget(picture);
-    layout->addWidget(bar);
-
-    QObject::connect(slider, SIGNAL(valueChanged(int)), bar, SLOT(setValue(int)));
-    QObject::connect(slider, SIGNAL(valueChanged(int)), picture, SLOT(setNum(int)));
+    QHBoxLayout layout(&widget);
+    layout.addWidget(&picture);
+    layout.addWidget(&bar);
 
     widget.setPalette(palette);
-    widget.setLayout(layout);
+    widget.setLayout(&layout);
     widget.setFixedSize(640, 480);
+
+    QSensor sensor(&widget);
+    sensor.start();
+
+    QObject::connect(&sensor, SIGNAL(valueChanged(int)), &bar, SLOT(setValue(int)));
+    QObject::connect(&sensor, SIGNAL(valueChanged(int)), &picture, SLOT(setNum(int)));
+
     widget.show();
     return a.exec();
 }
