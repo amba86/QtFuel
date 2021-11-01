@@ -21,12 +21,23 @@ int main(int argc, char *argv[])
 
     QFuelPicture picture(":/assets/fuel.png", QSize(160, 160), &widget);
 
-    QBarGraph bar(&widget);
+    QColor backgroundColor("#AAAAAA");
+    QColor cursorColor("#FFFF00");
+    QColor textColor("#000000");
+    QColor progressColor("#FFFF00");
+    QBrush progressBrush(progressColor);
+
+    QBarGraph bar(&backgroundColor,
+                  &cursorColor,
+                  &textColor,
+                  &progressColor,
+                  &progressBrush,
+                  &widget);
+    bar.setCornerRadius(20);
     bar.setPadding(20);
     bar.setMinimum(0);
     bar.setMaximum(255);
     bar.setFixedHeight(100);
-    bar.setCornerRadius(20);
 
     QHBoxLayout layout(&widget);
     layout.addWidget(&picture);

@@ -2,23 +2,20 @@
 
 #include <QStylePainter>
 
-QBarGraph::QBarGraph(QWidget *parent,
-                     QColor backgroundColor,
-                     QColor cursorColor,
-                     QColor textColor,
-                     QColor progressColor,
-                     QBrush progressBrush,
-                     int cornerRadius,
-                     int cursorOffset,
-                     int padding) : QProgressBar(parent) {
+QBarGraph::QBarGraph(QColor *backgroundColor,
+                     QColor *cursorColor,
+                     QColor *textColor,
+                     QColor *progressColor,
+                     QBrush *progressBrush,
+                     QWidget *parent) : QProgressBar(parent) {
     this->backgroundColor = backgroundColor;
     this->cursorColor = cursorColor;
     this->textColor = textColor;
     this->progressColor = progressColor;
     this->progressBrush = progressBrush;
-    this->cornerRadius = cornerRadius;
-    this->cursorOffset = cursorOffset;
-    this->padding = padding;
+    this->cornerRadius = 0;
+    this->cursorOffset = 5;
+    this->padding = 0;
 
     setValue(0);
 }
@@ -43,7 +40,7 @@ void QBarGraph::paintEvent(QPaintEvent *event) {
 void QBarGraph::paintBackground(QPainter *painter) {
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->setBrush(backgroundColor);
+    painter->setBrush(*backgroundColor);
 
     QRect rect(padding, 0, width() - padding * 2, height() / 3);
     painter->drawRoundedRect(rect, cornerRadius, cornerRadius);
@@ -54,7 +51,7 @@ void QBarGraph::paintBackground(QPainter *painter) {
 void QBarGraph::paintProgress(QPainter *painter) {
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->setBrush(progressBrush == Qt::NoBrush ? progressColor : progressBrush);
+    painter->setBrush(*progressBrush == Qt::NoBrush ? *progressColor : *progressBrush);
 
     QRect rect(padding, 0, progress(), height() / 3);
     painter->drawRoundedRect(rect, cornerRadius, cornerRadius);
@@ -72,7 +69,7 @@ int QBarGraph::progress() {
 void QBarGraph::paintTextbox(QPainter *painter) {
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->setBrush(progressBrush == Qt::NoBrush ? cursorColor : progressBrush);
+    painter->setBrush(*progressBrush == Qt::NoBrush ? *cursorColor : *progressBrush);
 
     QRect rect(progress(), height() / 3 + cursorOffset, padding * 2, height() / 3);
     painter->drawRoundedRect(rect, 4, 4);
@@ -96,57 +93,49 @@ void QBarGraph::paintCursor(QPainter *painter, QRect rect) {
 void QBarGraph::paintText(QPainter *painter, QRect rect) {
     double percent = value() / (double)(maximum() - minimum()) * 100;
     QString text = QString("%1%").arg(percent, 0, 'f', 0);
-    painter->setPen(textColor);
+    painter->setPen(*textColor);
     // TODO: set font
     //    painter->setFont();
     painter->drawText(rect, Qt::AlignCenter, text);
 }
 
-QColor QBarGraph::getBackgroundColor() const {
+QColor* QBarGraph::getBackgroundColor() const {
     return backgroundColor;
 }
 
-void QBarGraph::setBackgroundColor(const QColor &value) {
+void QBarGraph::setBackgroundColor(QColor *value) {
     backgroundColor = value;
 }
 
-QColor QBarGraph::getCursorColor() const {
+QColor* QBarGraph::getCursorColor() const {
     return cursorColor;
 }
 
-void QBarGraph::setCursorColor(const QColor &value) {
+void QBarGraph::setCursorColor(QColor *value) {
     cursorColor = value;
 }
 
-QColor QBarGraph::getTextColor() const {
+QColor* QBarGraph::getTextColor() const {
     return textColor;
 }
 
-void QBarGraph::setTextColor(const QColor &value) {
+void QBarGraph::setTextColor(QColor *value) {
     textColor = value;
 }
 
-QColor QBarGraph::getProgressColor() const {
+QColor* QBarGraph::getProgressColor() const {
     return progressColor;
 }
 
-void QBarGraph::setProgressColor(const QColor &value) {
+void QBarGraph::setProgressColor(QColor *value) {
     progressColor = value;
 }
 
-int QBarGraph::getCursorOffset() const {
-    return cursorOffset;
-}
-
-void QBarGraph::setCursorOffset(int value) {
-    cursorOffset = value;
-}
-
-QBrush QBarGraph::getProgressBrush() const {
+QBrush* QBarGraph::getProgressBrush() const {
     return progressBrush;
 }
 
-void QBarGraph::setProgressBrush(const QBrush &value) {
+void QBarGraph::setProgressBrush(QBrush *value) {
     progressBrush = value;
 }
 
