@@ -18,12 +18,12 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QWidget widget;
     QPalette palette;
-    palette.setColor(QPalette::Background, Qt::blue);
+    palette.setColor(QPalette::Background, QColor("#073B4C"));
 
     QSize scaledSize(160, 160);
-    QColor emptyColor("#FF0000");
-    QColor fullColor("#00FF00");
-    QColor halfFullColor("#FFFF00");
+    QColor emptyColor("#EF476F");
+    QColor fullColor("#06D6A0");
+    QColor halfFullColor("#FFD166");
     QFuelPicture picture(":/assets/fuel.png",
                          &scaledSize,
                          &emptyColor,
@@ -31,10 +31,10 @@ int main(int argc, char *argv[])
                          &halfFullColor,
                          &widget);
 
-    QColor backgroundColor("#AAAAAA");
-    QColor cursorColor("#FFFF00");
-    QColor textColor("#000000");
-    QColor progressColor("#FFFF00");
+    QColor backgroundColor("#0A4F66");
+    QColor cursorColor("#118AB2");
+    QColor textColor("#073B4C");
+    QColor progressColor("#118AB2");
     QBrush progressBrush(progressColor);
 
     QBarGraph bar(&backgroundColor,
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
                   &progressBrush,
                   &widget);
     bar.setCornerRadius(20);
-    bar.setPadding(25);
+    bar.setPadding(35);
     bar.setMinimum(0);
     bar.setMaximum(255);
     bar.setFixedHeight(100);

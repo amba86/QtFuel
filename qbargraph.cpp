@@ -93,7 +93,7 @@ void QBarGraph::paintText(QPainter *painter, QRect rect) {
     double percent = value() / (double)(maximum() - minimum()) * 100;
     QString text = QString("%1 %").arg(percent, 0, 'f', 0);
     painter->setPen(*textColor);
-    painter->setFont(QFont("Lato", 10, QFont::Bold));
+    painter->setFont(QFont("Lato", 14, QFont::Bold));
     painter->drawText(rect, Qt::AlignCenter, text);
 }
 
