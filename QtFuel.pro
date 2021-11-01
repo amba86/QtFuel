@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    qbargraph.cpp
+    qbargraph.cpp \
+    qfuelpicture.cpp
 
 HEADERS += \
     mainwindow.h \
-    qbargraph.h
+    qbargraph.h \
+    qfuelpicture.h
 
 FORMS += \
     mainwindow.ui
