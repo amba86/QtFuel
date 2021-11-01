@@ -19,7 +19,16 @@ int main(int argc, char *argv[])
     QPalette palette;
     palette.setColor(QPalette::Background, Qt::blue);
 
-    QFuelPicture picture(":/assets/fuel.png", QSize(160, 160), &widget);
+    QSize scaledSize(160, 160);
+    QColor emptyColor("#FF0000");
+    QColor fullColor("#00FF00");
+    QColor halfFullColor("#FFFF00");
+    QFuelPicture picture(":/assets/fuel.png",
+                         &scaledSize,
+                         &emptyColor,
+                         &fullColor,
+                         &halfFullColor,
+                         &widget);
 
     QColor backgroundColor("#AAAAAA");
     QColor cursorColor("#FFFF00");

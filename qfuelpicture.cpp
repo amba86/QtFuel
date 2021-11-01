@@ -3,13 +3,16 @@
 #include <QDebug>
 
 QFuelPicture::QFuelPicture(const QString &path,
-                           QSize size,
+                           QSize *size,
+                           QColor *emptyColor,
+                           QColor *fullColor,
+                           QColor *halfFullColor,
                            QWidget *parent) : QLabel(parent) {
     pmap = new QPixmap(path);
     this->size = size;
-    emptyColor = QColor("#FF0000");
-    fullColor = QColor("#00FF00");
-    halfFullColor = QColor("#FFFF00");
+    this->emptyColor = emptyColor;
+    this->fullColor = fullColor;
+    this->halfFullColor = halfFullColor;
 
     setNum(0);
 }
@@ -30,33 +33,27 @@ void QFuelPicture::setNum(int num) {
     emit pictureChanged(pixmap());
 }
 
-QColor QFuelPicture::getHalfFullColor() const
-{
+QColor* QFuelPicture::getHalfFullColor() const {
     return halfFullColor;
 }
 
-void QFuelPicture::setHalfFullColor(const QColor &value)
-{
+void QFuelPicture::setHalfFullColor(QColor *value) {
     halfFullColor = value;
 }
 
-QColor QFuelPicture::getFullColor() const
-{
+QColor* QFuelPicture::getFullColor() const {
     return fullColor;
 }
 
-void QFuelPicture::setFullColor(const QColor &value)
-{
+void QFuelPicture::setFullColor(QColor *value) {
     fullColor = value;
 }
 
-QColor QFuelPicture::getEmptyColor() const
-{
+QColor* QFuelPicture::getEmptyColor() const {
     return emptyColor;
 }
 
-void QFuelPicture::setEmptyColor(const QColor &value)
-{
+void QFuelPicture::setEmptyColor(QColor *value) {
     emptyColor = value;
 }
 
@@ -72,12 +69,12 @@ QPixmap QFuelPicture::halfFull() {
     return overlay(halfFullColor);
 }
 
-QPixmap QFuelPicture::overlay(QColor color) {
+QPixmap QFuelPicture::overlay(QColor *color) {
     QPixmap map = pmap->copy();
     QPainter painter(&map);
     painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-    painter.fillRect(map.rect(), color.rgb());
+    painter.fillRect(map.rect(), color->rgb());
     painter.end();
 
-    return map.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    return map.scaled(*size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }

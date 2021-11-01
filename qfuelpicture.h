@@ -12,7 +12,10 @@ class QFuelPicture : public QLabel {
 
 public:
     QFuelPicture(const QString &path,
-                 QSize size,
+                 QSize *size,
+                 QColor *emptyColor,
+                 QColor *fullColor,
+                 QColor *halfFullColor,
                  QWidget *parent = nullptr);
     ~QFuelPicture() Q_DECL_OVERRIDE;
 
@@ -20,26 +23,26 @@ public:
     QPixmap full();
     QPixmap halfFull();
 
-    QColor getEmptyColor() const;
-    void setEmptyColor(const QColor &value);
+    QColor* getEmptyColor() const;
+    void setEmptyColor(QColor *value);
 
-    QColor getFullColor() const;
-    void setFullColor(const QColor &value);
+    QColor* getFullColor() const;
+    void setFullColor(QColor *value);
 
-    QColor getHalfFullColor() const;
-    void setHalfFullColor(const QColor &value);
+    QColor* getHalfFullColor() const;
+    void setHalfFullColor(QColor *value);
 
 public slots:
     void setNum(int num);
 
 private:
+    QSize *size;
     QPixmap *pmap;
-    QSize size;
-    QColor emptyColor;
-    QColor fullColor;
-    QColor halfFullColor;
+    QColor *emptyColor;
+    QColor *fullColor;
+    QColor *halfFullColor;
 
-    QPixmap overlay(QColor color);
+    QPixmap overlay(QColor *color);
 
 signals:
     void pictureChanged(QPixmap const *newPixmap);
