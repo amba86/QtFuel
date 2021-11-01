@@ -1,3 +1,4 @@
+#include "qmodel.h"
 #include "qsensor.h"
 #include "qbargraph.h"
 #include "qfuelpicture.h"
@@ -56,11 +57,14 @@ int main(int argc, char *argv[])
     widget.setLayout(&layout);
     widget.setFixedSize(640, 480);
 
+    QModel model;
+
     QSensor sensor(&widget);
     sensor.start();
 
-    QObject::connect(&sensor, SIGNAL(valueChanged(int)), &bar, SLOT(setValue(int)));
-    QObject::connect(&sensor, SIGNAL(valueChanged(int)), &picture, SLOT(setNum(int)));
+    QObject::connect(&sensor, SIGNAL(valueChanged(int)), &model, SLOT(setFuelLevel(int)));
+    QObject::connect(&model, SIGNAL(fuelLevelChanged(int)), &bar, SLOT(setValue(int)));
+    QObject::connect(&model, SIGNAL(fuelLevelChanged(int)), &picture, SLOT(setNum(int)));
 
     widget.show();
     return a.exec();

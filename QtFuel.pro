@@ -20,12 +20,14 @@ SOURCES += \
     mainwindow.cpp \
     qbargraph.cpp \
     qfuelpicture.cpp \
+    qmodel.cpp \
     qsensor.cpp
 
 HEADERS += \
     mainwindow.h \
     qbargraph.h \
     qfuelpicture.h \
+    qmodel.h \
     qsensor.h
 
 FORMS += \
