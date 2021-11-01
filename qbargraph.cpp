@@ -19,6 +19,8 @@ QBarGraph::QBarGraph(QWidget *parent,
     this->cornerRadius = cornerRadius;
     this->cursorOffset = cursorOffset;
     this->padding = padding;
+
+    setValue(0);
 }
 
 QBarGraph::~QBarGraph() {

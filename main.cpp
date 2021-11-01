@@ -1,41 +1,52 @@
 #include "qbargraph.h"
+#include "qfuelpicture.h"
 
 #include <QApplication>
 #include <QHBoxLayout>
 #include <QWidget>
+#include <QPixmap>
+#include <QLabel>
+#include <QSize>
 
 // TODO: remove
 #include <QSlider>
 #include <QDebug>
+#include <QPainter>
+#include <QImage>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QWidget w;
-    QPalette p;
-    p.setColor(QPalette::Background, Qt::blue);
+    QWidget widget;
+    QPalette palette;
+    palette.setColor(QPalette::Background, Qt::blue);
 
-    QSlider *s = new QSlider(Qt::Vertical, &w);
-    s->setMinimum(0);
-    s->setMaximum(255);
+    QSlider *slider = new QSlider(Qt::Vertical, &widget);
+    slider->setMinimum(0);
+    slider->setMaximum(255);
 
-    QBarGraph *b = new QBarGraph(&w);
-    b->setPadding(20);
-    b->setValue(0);
-    b->setMinimum(0);
-    b->setMaximum(255);
-    b->setFixedHeight(100);
-    b->setCornerRadius(20);
+    QFuelPicture *picture = new QFuelPicture(":/assets/fuel.png",
+                                             QSize(160, 160),
+                                             &widget);
 
-    QHBoxLayout *l = new QHBoxLayout(&w);
-    l->addWidget(s);
-    l->addWidget(b);
+    QBarGraph *bar = new QBarGraph(&widget);
+    bar->setPadding(20);
+    bar->setMinimum(0);
+    bar->setMaximum(255);
+    bar->setFixedHeight(100);
+    bar->setCornerRadius(20);
 
-    QObject::connect(s, SIGNAL(valueChanged(int)), b, SLOT(setValue(int)));
+    QHBoxLayout *layout = new QHBoxLayout(&widget);
+    layout->addWidget(slider);
+    layout->addWidget(picture);
+    layout->addWidget(bar);
 
-    w.setPalette(p);
-    w.setLayout(l);
-    w.setFixedSize(640, 480);
-    w.show();
+    QObject::connect(slider, SIGNAL(valueChanged(int)), bar, SLOT(setValue(int)));
+    QObject::connect(slider, SIGNAL(valueChanged(int)), picture, SLOT(setNum(int)));
+
+    widget.setPalette(palette);
+    widget.setLayout(layout);
+    widget.setFixedSize(640, 480);
+    widget.show();
     return a.exec();
 }
