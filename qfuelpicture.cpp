@@ -7,6 +7,9 @@ QFuelPicture::QFuelPicture(const QString &path,
                            QWidget *parent) : QLabel(parent) {
     pmap = new QPixmap(path);
     this->size = size;
+    emptyColor = QColor("#FF0000");
+    fullColor = QColor("#00FF00");
+    halfFullColor = QColor("#FFFF00");
 
     setNum(0);
 }
@@ -27,16 +30,46 @@ void QFuelPicture::setNum(int num) {
     emit pictureChanged(pixmap());
 }
 
+QColor QFuelPicture::getHalfFullColor() const
+{
+    return halfFullColor;
+}
+
+void QFuelPicture::setHalfFullColor(const QColor &value)
+{
+    halfFullColor = value;
+}
+
+QColor QFuelPicture::getFullColor() const
+{
+    return fullColor;
+}
+
+void QFuelPicture::setFullColor(const QColor &value)
+{
+    fullColor = value;
+}
+
+QColor QFuelPicture::getEmptyColor() const
+{
+    return emptyColor;
+}
+
+void QFuelPicture::setEmptyColor(const QColor &value)
+{
+    emptyColor = value;
+}
+
 QPixmap QFuelPicture::empty() {
-    return overlay(QColor("#FF0000"));
+    return overlay(emptyColor);
 }
 
 QPixmap QFuelPicture::full() {
-    return overlay(QColor("#00FF00"));
+    return overlay(fullColor);
 }
 
 QPixmap QFuelPicture::halfFull() {
-    return overlay(QColor("#FFFF00"));
+    return overlay(halfFullColor);
 }
 
 QPixmap QFuelPicture::overlay(QColor color) {

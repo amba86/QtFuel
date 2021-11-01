@@ -20,12 +20,24 @@ public:
     QPixmap full();
     QPixmap halfFull();
 
+    QColor getEmptyColor() const;
+    void setEmptyColor(const QColor &value);
+
+    QColor getFullColor() const;
+    void setFullColor(const QColor &value);
+
+    QColor getHalfFullColor() const;
+    void setHalfFullColor(const QColor &value);
+
 public slots:
     void setNum(int num);
 
 private:
-    QSize size;
     QPixmap *pmap;
+    QSize size;
+    QColor emptyColor;
+    QColor fullColor;
+    QColor halfFullColor;
 
     QPixmap overlay(QColor color);
 
