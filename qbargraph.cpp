@@ -92,10 +92,9 @@ void QBarGraph::paintCursor(QPainter *painter, QRect rect) {
 
 void QBarGraph::paintText(QPainter *painter, QRect rect) {
     double percent = value() / (double)(maximum() - minimum()) * 100;
-    QString text = QString("%1%").arg(percent, 0, 'f', 0);
+    QString text = QString("%1 %").arg(percent, 0, 'f', 0);
     painter->setPen(*textColor);
-    // TODO: set font
-    //    painter->setFont();
+    painter->setFont(QFont("Lato", 10, QFont::Bold));
     painter->drawText(rect, Qt::AlignCenter, text);
 }
 

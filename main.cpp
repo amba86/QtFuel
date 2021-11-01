@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
                   &progressBrush,
                   &widget);
     bar.setCornerRadius(20);
-    bar.setPadding(20);
+    bar.setPadding(25);
     bar.setMinimum(0);
     bar.setMaximum(255);
     bar.setFixedHeight(100);
