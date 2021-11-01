@@ -132,13 +132,11 @@ void QBarGraph::setProgressColor(const QColor &value) {
     progressColor = value;
 }
 
-int QBarGraph::getCursorOffset() const
-{
+int QBarGraph::getCursorOffset() const {
     return cursorOffset;
 }
 
-void QBarGraph::setCursorOffset(int value)
-{
+void QBarGraph::setCursorOffset(int value) {
     cursorOffset = value;
 }
 
