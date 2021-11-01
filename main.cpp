@@ -16,10 +16,14 @@ int main(int argc, char *argv[])
     p.setColor(QPalette::Background, Qt::blue);
 
     QSlider *s = new QSlider(Qt::Vertical, &w);
+    s->setMinimum(0);
+    s->setMaximum(255);
+
     QBarGraph *b = new QBarGraph(&w);
     b->setPadding(20);
+    b->setValue(0);
     b->setMinimum(0);
-    b->setMaximum(100);
+    b->setMaximum(255);
     b->setFixedHeight(100);
     b->setCornerRadius(20);
 
