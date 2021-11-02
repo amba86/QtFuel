@@ -1,7 +1,5 @@
 #include "qsensor.h"
 
-#include <QDebug>
-#include <QDateTime>
 #include <QtMath>
 
 QSensor::QSensor(QObject *parent) : QThread(parent) {

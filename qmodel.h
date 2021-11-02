@@ -3,11 +3,12 @@
 
 #include <QObject>
 
-class QModel : public QObject
-{
+class QModel : public QObject {
     Q_OBJECT
+
 public:
     explicit QModel(QObject *parent = nullptr);
+    ~QModel() Q_DECL_OVERRIDE;
 
     int getFuelLevel() const;
 

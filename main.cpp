@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     widget.setLayout(&layout);
     widget.setFixedSize(640, 480);
 
-    QModel model;
+    QModel model(&widget);
 
     QSensor sensor(&widget);
     sensor.start();

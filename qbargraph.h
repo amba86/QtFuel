@@ -39,9 +39,6 @@ public:
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-    void paintBackground(QPainter *painter);
-    void paintTextbox(QPainter *painter);
-    void paintProgress(QPainter *painter);
 
 private:
     QColor *backgroundColor;
@@ -56,6 +53,9 @@ private:
     int padding;
 
     int progress();
+    void paintBackground(QPainter *painter);
+    void paintProgress(QPainter *painter);
+    void paintTextbox(QPainter *painter);
     void paintCursor(QPainter *painter, QRect rect);
     void paintText(QPainter *painter, QRect rect);
 };

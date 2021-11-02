@@ -8,17 +8,18 @@ class QSensor : public QThread {
 
 public:
     explicit QSensor(QObject *parent = nullptr);
-    ~QSensor();
+    ~QSensor() Q_DECL_OVERRIDE;
+
+signals:
+    void valueChanged(int newValue);
 
 protected:
     void run();
 
 private:
     int value;
-    bool ascending;
+    double angle;
 
-signals:
-    void valueChanged(int newValue);
 };
 
 #endif // SENSOR_H

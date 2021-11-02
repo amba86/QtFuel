@@ -35,6 +35,9 @@ public:
 public slots:
     void setNum(int num);
 
+signals:
+    void pictureChanged(QPixmap const *newPixmap);
+
 private:
     QSize *size;
     QPixmap *pmap;
@@ -44,8 +47,6 @@ private:
 
     QPixmap overlay(QColor *color);
 
-signals:
-    void pictureChanged(QPixmap const *newPixmap);
 };
 
 #endif // QFUELPICTURE_H

@@ -6,6 +6,10 @@ QModel::QModel(QObject *parent) : QObject(parent) {
     fuelLevel = 0;
 }
 
+QModel::~QModel() {
+    // NOP
+}
+
 int QModel::getFuelLevel() const {
     return fuelLevel;
 }
