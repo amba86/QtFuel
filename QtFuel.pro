@@ -17,21 +17,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
     qbargraph.cpp \
     qfuelpicture.cpp \
     qmodel.cpp \
     qsensor.cpp
 
 HEADERS += \
-    mainwindow.h \
     qbargraph.h \
     qfuelpicture.h \
     qmodel.h \
     qsensor.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
