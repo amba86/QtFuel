@@ -5,13 +5,14 @@
 
 #include <QApplication>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QCheckBox>
 #include <QWidget>
 #include <QPixmap>
 #include <QLabel>
 #include <QSize>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     QWidget widget;
     QPalette palette;
@@ -46,19 +47,27 @@ int main(int argc, char *argv[])
     bar.setMaximum(255);
     bar.setFixedHeight(100);
 
-    QHBoxLayout layout(&widget);
-    layout.addWidget(&picture);
-    layout.addWidget(&bar);
+    QCheckBox checkBox("100% &slope (45°)", &widget);
+
+    QHBoxLayout hLayout(&widget);
+    QVBoxLayout vLayout(&widget);
+    vLayout.addStretch(6);
+    vLayout.addWidget(&bar);
+    vLayout.addStretch(4);
+    vLayout.addWidget(&checkBox);
+    vLayout.setAlignment(&checkBox, Qt::AlignRight);
+    hLayout.addWidget(&picture);
+    hLayout.addLayout(&vLayout);
 
     widget.setPalette(palette);
-    widget.setLayout(&layout);
+    widget.setLayout(&hLayout);
     widget.setFixedSize(640, 480);
 
     QModel model(&widget);
-
     QSensor sensor(&widget);
     sensor.start();
 
+    QObject::connect(&checkBox, SIGNAL(stateChanged(int)), &model, SLOT(setSlope(int)));
     QObject::connect(&sensor, SIGNAL(valueChanged(int)), &model, SLOT(setFuelLevel(int)));
     QObject::connect(&model, SIGNAL(fuelLevelChanged(int)), &bar, SLOT(setValue(int)));
     QObject::connect(&model, SIGNAL(fuelLevelChanged(int)), &picture, SLOT(setNum(int)));
