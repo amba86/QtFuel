@@ -14,17 +14,17 @@ QFuelPicture::QFuelPicture(const QString &path,
     this->fullColor = fullColor;
     this->halfFullColor = halfFullColor;
 
-    setNum(0);
+    setFuelLevel(0);
 }
 
 QFuelPicture::~QFuelPicture() {
     delete pmap;
 }
 
-void QFuelPicture::setNum(int num) {
-    if (num / 256.0 < 0.33) {
+void QFuelPicture::setFuelLevel(int fuelLevel) {
+    if (fuelLevel / 256.0 < 0.33) {
         setPixmap(empty());
-    } else if (num / 256.0 < 0.66) {
+    } else if (fuelLevel / 256.0 < 0.66) {
         setPixmap(halfFull());
     } else {
         setPixmap(full());

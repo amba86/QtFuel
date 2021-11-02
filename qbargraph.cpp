@@ -3,13 +3,13 @@
 #include <QStylePainter>
 
 QBarGraph::QBarGraph(QColor *backgroundColor,
-                     QColor *cursorColor,
+                     QColor *textboxColor,
                      QColor *textColor,
                      QColor *progressColor,
                      QBrush *progressBrush,
                      QWidget *parent) : QProgressBar(parent) {
     this->backgroundColor = backgroundColor;
-    this->cursorColor = cursorColor;
+    this->textboxColor = textboxColor;
     this->textColor = textColor;
     this->progressColor = progressColor;
     this->progressBrush = progressBrush;
@@ -68,7 +68,7 @@ int QBarGraph::progress() {
 void QBarGraph::paintTextbox(QPainter *painter) {
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->setBrush(*progressBrush == Qt::NoBrush ? *cursorColor : *progressBrush);
+    painter->setBrush(*progressBrush == Qt::NoBrush ? *textboxColor : *progressBrush);
 
     QRect rect(progress(), height() / 3 + cursorOffset, padding * 2, height() / 3);
     painter->drawRoundedRect(rect, 4, 4);
@@ -105,12 +105,12 @@ void QBarGraph::setBackgroundColor(QColor *value) {
     backgroundColor = value;
 }
 
-QColor* QBarGraph::getCursorColor() const {
-    return cursorColor;
+QColor* QBarGraph::getTextboxColor() const {
+    return textboxColor;
 }
 
-void QBarGraph::setCursorColor(QColor *value) {
-    cursorColor = value;
+void QBarGraph::setTextboxColor(QColor *value) {
+    textboxColor = value;
 }
 
 QColor* QBarGraph::getTextColor() const {

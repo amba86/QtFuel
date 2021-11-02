@@ -30,13 +30,13 @@ int main(int argc, char *argv[]) {
                          &widget);
 
     QColor backgroundColor("#0A4F66");
-    QColor cursorColor("#118AB2");
+    QColor textboxColor("#118AB2");
     QColor textColor("#073B4C");
     QColor progressColor("#118AB2");
     QBrush progressBrush(progressColor);
 
     QBarGraph bar(&backgroundColor,
-                  &cursorColor,
+                  &textboxColor,
                   &textColor,
                   &progressColor,
                   &progressBrush,
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
     QObject::connect(&checkBox, SIGNAL(stateChanged(int)), &model, SLOT(setSlope(int)));
     QObject::connect(&sensor, SIGNAL(valueChanged(int)), &model, SLOT(setFuelLevel(int)));
     QObject::connect(&model, SIGNAL(fuelLevelChanged(int)), &bar, SLOT(setValue(int)));
-    QObject::connect(&model, SIGNAL(fuelLevelChanged(int)), &picture, SLOT(setNum(int)));
+    QObject::connect(&model, SIGNAL(fuelLevelChanged(int)), &picture, SLOT(setFuelLevel(int)));
 
     widget.show();
     return a.exec();
