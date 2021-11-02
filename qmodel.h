@@ -13,13 +13,16 @@ public:
     int getFuelLevel() const;
 
 public slots:
+    void setSlope(int newValue);
     void setFuelLevel(int newValue);
 
 signals:
     void fuelLevelChanged(int newFuelLevel);
 
 private:
+    bool slope;
     int fuelLevel;
+    double threshold;
 
 };
 
