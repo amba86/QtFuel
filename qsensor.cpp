@@ -1,10 +1,11 @@
 #include "qsensor.h"
 
 #include <QtMath>
+#include <QDebug>
 
 QSensor::QSensor(QObject *parent) : QThread(parent) {
     value = -256;
-    ascending = true;
+    angle = 0.0;
 }
 
 QSensor::~QSensor() {
@@ -13,23 +14,11 @@ QSensor::~QSensor() {
 
 void QSensor::run() {
     while (true) {
-        if (ascending) {
-            value++;
-
-            if (value == 255) {
-                ascending = false;
-            }
-        } else {
-            value--;
-
-            if (value == -255) {
-                ascending = true;
-            }
-        }
-
-        qDebug() << value;
+        value = -255 * cos(angle);
+        angle += M_PI / 360;
 
         emit valueChanged(value);
+
         msleep(200);
     }
 }
