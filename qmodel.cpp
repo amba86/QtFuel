@@ -18,7 +18,7 @@ int QModel::getFuelLevel() const {
 }
 
 void QModel::setSlope(int newValue) {
-    if (slope = (bool) newValue) {
+    if ((slope = (bool) newValue)) {
         threshold = 0.1;
     } else {
         threshold = 0.05;
