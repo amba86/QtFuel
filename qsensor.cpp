@@ -1,10 +1,9 @@
 #include "qsensor.h"
 
 #include <QtMath>
-#include <QDebug>
 
 QSensor::QSensor(QObject *parent) : QThread(parent) {
-    value = -256;
+    value = 0;
     angle = 0.0;
 }
 
