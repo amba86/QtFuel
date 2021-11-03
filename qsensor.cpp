@@ -13,11 +13,19 @@ QSensor::~QSensor() {
 
 void QSensor::run() {
     while (true) {
-        value = -255 * cos(angle);
-        angle += M_PI / 360;
+        value = generateData(angle);
+        angle = nextAngle(angle);
 
         emit valueChanged(value);
 
         msleep(200);
     }
+}
+
+int QSensor::generateData(double angle) {
+    return -255 * cos(angle);
+}
+
+double QSensor::nextAngle(double angle) {
+    return angle + M_PI / 360;
 }

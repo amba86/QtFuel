@@ -33,7 +33,7 @@ signals:
 protected:
 
     /*!
-     * \brief run The starting point for the thread. New data is generated using the cosine wave.
+     * \brief run Generates new data every 200 ms using the cosine wave.
      */
     void run();
 
@@ -48,6 +48,20 @@ private:
      * \brief angle The current cosine angle.
      */
     double angle;
+
+    /*!
+     * \brief generateValue Creates a new data based on the specified angle.
+     * \param angle The current angle in degrees.
+     * \return The new data.
+     */
+    int generateData(double angle);
+
+    /*!
+     * \brief nextAngle Calculates the next angle.
+     * \param angle The current angle.
+     * \return A calculated angle.
+     */
+    double nextAngle(double angle);
 
 };
 
