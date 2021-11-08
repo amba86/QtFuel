@@ -39,6 +39,8 @@ protected:
 
 private:
 
+    friend class QSensorTest;
+
     /*!
      * \brief value The data representing the fuel level.
      */

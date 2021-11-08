@@ -54,6 +54,8 @@ signals:
 
 private:
 
+    friend class QModelTest;
+
     /*!
      * \brief slope Indicates slope state.
      */
